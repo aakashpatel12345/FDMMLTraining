@@ -1,0 +1,9 @@
+The dataset contains several parameters which are considered important during the application for Masters Programs. 
+1. GRE Scores (out of 340)
+2. TOEFL Scores (out of 120)
+3. University Rating (out of 5)
+4. Statement of Purpose (out of 5)
+5. Letter of Recommendation Strength (out of 5)
+6. Undergraduate GPA (out of 10)
+7. Research Experience (either 0 or 1)
+8. Chance of Admit (ranging from 0 to 1)

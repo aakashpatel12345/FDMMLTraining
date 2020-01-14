@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-data = pd.read_csv("./Datasets/admissions.csv")
+data = pd.read_csv("admissions.csv")
 
 #create independent and dependent variables
 x=np.array(data["TOEFL Score"])

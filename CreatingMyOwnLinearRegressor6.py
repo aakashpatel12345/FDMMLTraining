@@ -1,21 +1,45 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jan 13 18:16:35 2020
+Created on Tue Jan 14 14:58:33 2020
 
-@author: Aakash
+@author: aakash.patel
 """
+
 import pandas as pd
 import numpy as np
+#import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
 
-data = pd.read_csv("./data/admissions.csv")
+
+data = pd.read_csv("./data/medical_costs.csv")
+
+
+
+#split catergorical data
+#first sex - split into 1
+dataEncoded = pd.get_dummies(data,columns = ['sex'], drop_first=True)
+
+#then smoker - split into 1
+dataEncoded = pd.get_dummies(dataEncoded,columns = ['smoker'], drop_first=True)
+
+#then region - split into 3
+dataEncoded = pd.get_dummies(dataEncoded,columns = ['region'], drop_first=True)
+
+#standardisation
+scalar = MinMaxScaler()
+dataScaled = dataEncoded.copy()
+dataScaled[['age', 'bmi', 'children', 'charges']] = \
+scalar.fit_transform(dataEncoded[['age', 'bmi', 'children', 'charges']])
 
 #create independent and dependent variables
-x=np.array(data[["TOEFL Score" , "GRE Score"]])
-y=np.array(data["CGPA"])
+x = np.array(dataScaled[["age","bmi","smoker_yes","children",'region_northwest', 'region_southeast', 'region_southwest']])
+y = np.array(dataScaled["charges"])
 
 NumOfDependentVariables = x.shape[1]
-def gradient_descent(x,y,learning_rate=0.0000001,num_iterations = 100000):
+
+
+def gradient_descent(x,y,learning_rate=0.001,num_iterations = 100):
     #initialise y-intercept and gradient
     m = {}
     y_pred = y*0 
@@ -26,6 +50,8 @@ def gradient_descent(x,y,learning_rate=0.0000001,num_iterations = 100000):
         value=0
         m[key] = value
     
+    
+    sorted(m) # puts keys in alphabetical order
     b_curr = 0
     n = len(y)
     
@@ -55,7 +81,15 @@ def gradient_descent(x,y,learning_rate=0.0000001,num_iterations = 100000):
        print ("The gradient of term 2 in this iteration is {}".format(m['m_curr_1']))
        print("The y_intercept in this iteration is {}".format(b_curr))
        print("This is iteration number {} and it costs {}".format(i, cost))
+       print('\n')
 
+       if abs(learning_rate*m_grad)<0.00001 and abs(learning_rate*b_grad)<0.00001:
+           print (learning_rate*m_grad)
+           break
+       
+       if cost == 0:
+           print("You have perfectly fit the data")
+           break
 
    
        #need to account for multiple independent variables 

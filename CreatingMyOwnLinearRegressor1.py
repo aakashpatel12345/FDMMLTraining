@@ -13,17 +13,18 @@ import numpy as np
 
 
 class AakashLinearRegression:
-    coef_ = 0
-    intercept_ = 0
     
+    def __init__(self):
+        self.coef_ = 0
+        self.intercept_ = 0
     
-    def  cal_cost(theta,X,y):
+    def  cal_cost(self, theta,X,y):
         m = len(y)
         predictions = X.dot(theta)
         cost = (1/2*m) * np.sum(np.square(predictions-y))
         return cost
     
-    def gradient_descent(X,y,theta,learning_rate=0.01,iterations=100):
+    def gradient_descent(self, X,y,theta,learning_rate=0.01,iterations=100):
         m = len(y)
         cost_history = np.zeros(iterations)
         theta_history = np.zeros((iterations,2))
@@ -36,15 +37,15 @@ class AakashLinearRegression:
         return theta, cost_history, theta_history
 
 
-    def fit(x,y):
+    def fit(self, x,y):
         #should be able to handle x being a 1d array or '2+'d array
-        
+        sceof_ = coef_ + 1
         pass
     
-    def predict(x,y):
+    def predict(self, x,y):
         pass
     
-    def score(x,y):
+    def score(self, x,y):
         pass
 
 ALR = AakashLinearRegression()

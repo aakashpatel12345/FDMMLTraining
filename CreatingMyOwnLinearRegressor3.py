@@ -6,17 +6,18 @@ Created on Mon Jan 13 17:35:01 2020
 """
 
 import pandas as pd
+from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 import numpy as np
 
 
-data = pd.read_csv("./data/admissions.csv")
+data = pd.read_csv("./Datasets/admissions.csv")
 
 #create independent and dependent variables
 x=np.array(data["TOEFL Score"])
 y=np.array(data["CGPA"])
 
-def gradient_descent(x,y,learning_rate=0.0001,num_iterations = 100):
+def gradient_descent(x,y,learning_rate=0.0001,num_iterations = 10):
     #initialise y-intercept and gradient
     m_curr = 0
     b_curr = 0
@@ -39,13 +40,7 @@ def gradient_descent(x,y,learning_rate=0.0001,num_iterations = 100):
        print("This is iteration number {} and it costs {}".format(i, cost))
        print('\n')
         
-       if abs(learning_rate*m_grad)<0.00001 and abs(learning_rate*b_grad)<0.00001:
-           print (learning_rate*m_grad)
-           break
        
-       if cost == 0:
-           print("You have perfectly fit the data")
-           break
        #need to account for multiple independent variables 
        #multiple m's
        

@@ -8,14 +8,14 @@ import pandas as pd
 import numpy as np
 
 
-data = pd.read_csv("./data/admissions.csv")
+data = pd.read_csv("./Datasets/admissions.csv")
 
 #create independent and dependent variables
 x=np.array(data[["TOEFL Score" , "GRE Score"]])
 y=np.array(data["CGPA"])
 
 NumOfDependentVariables = x.shape[1]
-def gradient_descent(x,y,learning_rate=0.0000001,num_iterations = 100000):
+def gradient_descent(x,y,learning_rate=0.0000001,num_iterations = 10):
     #initialise y-intercept and gradient
     m = {}
     y_pred = y*0 
@@ -55,6 +55,7 @@ def gradient_descent(x,y,learning_rate=0.0000001,num_iterations = 100000):
        print ("The gradient of term 2 in this iteration is {}".format(m['m_curr_1']))
        print("The y_intercept in this iteration is {}".format(b_curr))
        print("This is iteration number {} and it costs {}".format(i, cost))
+       print("\n")
 
 
    

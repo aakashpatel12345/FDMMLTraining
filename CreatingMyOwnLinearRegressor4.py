@@ -9,14 +9,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-data = pd.read_csv("admissions.csv")
+data = pd.read_csv("./Datasets/admissions.csv")
 
 #create independent and dependent variables
 x=np.array(data["TOEFL Score"])
 y=np.array(data["CGPA"])
 
 def gradient_descent(x,y,learning_rate=0.0001,num_iterations = 10):
-    
     m_curr = 0
     b_curr = 0
     n = len(y)

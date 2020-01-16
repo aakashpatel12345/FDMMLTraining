@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jan 14 14:58:33 2020
+Created on Thu Jan 16 11:41:54 2020
 
 @author: aakash.patel
 """
@@ -16,9 +16,7 @@ x=np.array(data[["x1" , "x2", "x3"]])
 y=np.array(data[["y"]])
 
 
-
-
-def gradient_descent(x,y,learning_rate=0.011,num_iterations = 100):
+def gradient_descent(x,y,learning_rate=0.001,num_iterations = 10):
     NumOfDependentVariables = x.shape[1]
     
     #initialise y-intercept and gradient
@@ -38,9 +36,9 @@ def gradient_descent(x,y,learning_rate=0.011,num_iterations = 100):
     
     for i in range(num_iterations):
        y_pred = y_pred + b_curr
-       j=0
+       j = 0 
        for key in m:
-          y_pred = y_pred + (m[key] * x[:,j]) 
+          y_pred = y_pred + (m[key] * np.array([x[:,j]]).T) 
           j=+1 
         
        
@@ -52,7 +50,7 @@ def gradient_descent(x,y,learning_rate=0.011,num_iterations = 100):
        #need to do for each m
        k=0
        for key in m:
-           m_grad = -(1/n) * sum(x[:,k]*(y-y_pred))
+           m_grad = -(1/n) * sum(np.array([x[:,k]]).T*(y-y_pred))
            m[key] = m[key] - (learning_rate*m_grad)
            k=+1
        
@@ -60,19 +58,19 @@ def gradient_descent(x,y,learning_rate=0.011,num_iterations = 100):
        b_curr = b_curr - (learning_rate*b_grad)
        
        
-       print ("The gradient of term 1 in this iteration is {}".format(m['m_curr_0'][0]))
-       print ("The gradient of term 2 in this iteration is {}".format(m['m_curr_1'][1]))
+       print ("The gradient of term 1 in this iteration is {}".format(m['m_curr_0']))
+       print ("The gradient of term 2 in this iteration is {}".format(m['m_curr_1']))
        print("The y_intercept in this iteration is {}".format(b_curr[0]))
        print("This is iteration number {} and it costs {}".format(i, cost))
        print('\n')
 
-       '''if abs(learning_rate*m_grad)<0.00001 and abs(learning_rate*b_grad)<0.00001:
+       if abs(learning_rate*m_grad)<0.00001 and abs(learning_rate*b_grad)<0.00001:
            print (learning_rate*m_grad)
            break
        
        if cost == 0:
            print("You have perfectly fit the data")
-           break'''
+           break
 
    
        #need to account for multiple independent variables 
@@ -83,3 +81,4 @@ def gradient_descent(x,y,learning_rate=0.011,num_iterations = 100):
        #
        
 gradient_descent(x,y) 
+

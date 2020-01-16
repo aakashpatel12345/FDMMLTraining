@@ -17,18 +17,21 @@ import numpy as np
 #import statsmodels.formula.api as sm
 
 
-data = pd.read_csv("./Datasets/admissions.csv")
+data = pd.read_csv("./my_linear_regressor.csv")
 
-x=np.array(data[["TOEFL Score" , "GRE Score"]])
-y=np.array(data[["CGPA"]])
+x=np.array(data[["x1" , "x2", "x3"]])
+y=np.array(data[["y"]])
 
-sample_size = len(x)
-constant_column = np.array(np.ones((sample_size,1)).astype(int))
-x = np.append(arr = constant_column, values = x ,axis = 1)
 
-num_of_coefs = x.shape[1] # includes y-intercept
 
-def gradient_descent(x,y,learning_rate=0.0000001,num_iterations = 10):
+def gradient_descent(x,y,learning_rate=0.011,num_iterations = 10000):
+    
+    sample_size = len(x)
+    constant_column = np.array(np.ones((sample_size,1)).astype(int))
+    x = np.append(arr = constant_column, values = x ,axis = 1)
+
+    num_of_coefs = x.shape[1] # includes y-intercept
+    
     matrix_of_coef = np.array(np.zeros((num_of_coefs, 1)))
 
     for i in range(num_iterations):
@@ -44,6 +47,7 @@ def gradient_descent(x,y,learning_rate=0.0000001,num_iterations = 10):
            
        print ("The gradient of term 1 in this iteration is {}".format(matrix_of_coef[1,0]))
        print ("The gradient of term 2 in this iteration is {}".format(matrix_of_coef[2,0]))
+       print ("The gradient of term 3 in this iteration is {}".format(matrix_of_coef[3,0]))
        print("The y_intercept in this iteration is {}".format(matrix_of_coef[0,0]))
        print("This is iteration number {} and it costs {}".format(i, cost))
        print('\n')
